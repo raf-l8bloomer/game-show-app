@@ -28,18 +28,31 @@ const phrases = [
     "its 5 oclock somewhere"
 ]
 
-const splitPhrase= [];
+const characterList = [];
 
-function getRandomPhraseAsArray(phraseList) {
-    const phraseIndex = Math.floor(Math.random() * arr.length) + 1
+function getRandomPhraseAsArray(arr) {
+    const phraseIndex = Math.floor(Math.random() * arr.length) + 1;
+    console.log(phraseIndex);
     const randomPhrase = arr[phraseIndex];
     console.log(randomPhrase);
-    splitPhrase.push(randomPhrase).split(""));
-    console.log(splitPhrase)
+    return characterList.push(randomPhrase.split(""));
 }
 
-getRandomPhraseAsArray(phrase);
+getRandomPhraseAsArray(phrases);
+console.log(characterList);
+const phraseList = document.querySelector('#phrase > ul');
 
-function addPhraseToDisplay (arr) {
 
+function addPhraseToDisplay(arr) {
+    characterHTML = ""
+    arr.forEach(character => {
+        if (character == " ") {
+            characterHTML += `<li>${character}</li>`
+        } else {
+            characterHTML += `<li class="letter">${character}</li>`
+        }
+    });
+    return characterHTML
 }
+
+console.log(addPhraseToDisplay(characterList));
