@@ -13,11 +13,11 @@ startGame.addEventListener('click', () => {
 })
 
 const hints = [
-    "hids fie fold logs hum aware",
+    "hids nod hue wets may",
     "the row pack thirst hay",
     "aisle hike peg bus hike an hot done high",
     "son dane knived vote bowl",
-    "hids nod hue wets may"
+    "hids fie fold logs hum aware",
 ]
 
 const phrases = [
@@ -28,31 +28,48 @@ const phrases = [
     "its 5 oclock somewhere"
 ]
 
-const characterList = [];
+// const characterList = [];
 
 function getRandomPhraseAsArray(arr) {
-    const phraseIndex = Math.floor(Math.random() * arr.length) + 1;
-    console.log(phraseIndex);
+    const phraseIndex = Math.floor(Math.random() * arr.length);
     const randomPhrase = arr[phraseIndex];
-    console.log(randomPhrase);
-    return characterList.push(randomPhrase.split(""));
+    return randomPhrase;
+    // const splitPhrase = randomPhrase.split('');
+    // return characterList.push(splitPhrase);
 }
 
-getRandomPhraseAsArray(phrases);
-console.log(characterList);
-const phraseList = document.querySelector('#phrase > ul');
-
+const randomPhrase = getRandomPhraseAsArray(phrases);
+console.log(`This the new phrase: ${randomPhrase}`);
+const phraseList = document.querySelector('#phrase ul');
+console.log(`This is a phrase list : ${phraseList}`)
 
 function addPhraseToDisplay(arr) {
-    characterHTML = ""
-    arr.forEach(character => {
-        if (character == " ") {
-            characterHTML += `<li>${character}</li>`
+    arr.split("").forEach((character) => {
+        console.log(character);
+        if (character === " ") {
+            const li = document.createElement('li');
+            li.innerHTML = `<li class="space">${character}</li>`;
+            phraseList.appendChild(li);
         } else {
-            characterHTML += `<li class="letter">${character}</li>`
+            const li = document.createElement('li');
+            li.innerHTML = `<li class="letter">${character}</li>`;
+            phraseList.appendChild(li);
         }
     });
-    return characterHTML
 }
 
-console.log(addPhraseToDisplay(characterList));
+addPhraseToDisplay(randomPhrase);
+
+
+// function addPhraseToDisplay(arr) {
+//     characterHTML = "";
+//     console.log(`This is array length: ${arr.length}`)
+//     for (let i = 0; i<arr.length; i++) {
+//         console.log(`<li>${arr[i]}</li>`);
+//     }
+// }
+
+
+
+
+
