@@ -60,43 +60,32 @@ function addPhraseToDisplay(arr) {
 
 addPhraseToDisplay(randomPhrase);
 
-
 function checkLetter (guess) {
     console.log(guess);
     const letters = document.querySelectorAll(".letter");
-    letters.forEach(letter => {
-        console.log(`These are the letters: ${letters}`)
-        console.log(`This is the letter: ${letter.textContent}`)
-
-        if (letter.textContent == guess) {
-            console.log(`this is a letter: ${letter}`);
+    for (const letter of letters) {
+        if (letter.textContent === guess.textContent) {
+            console.log(`this is a letter: ${letter.textContent}`);
             letter.classList.add("show");
-            const correct = guess;
-            return correct;
-        } else {
-            return null
-        }
-    })
+           return letter.textContent;
+    }}
+    return null;
 }
-
-// const keyboard = document.getElementsByTagName("button");
-// const keyboard = document.querySelectorAll(".keyrow");
 
 const keyboard = document.querySelector("#qwerty")
 console.log(`This is the keyboard: ${keyboard}`);
 
 keyboard.addEventListener("click", (e) => {
     const clicked = e.target;
-    // console.log(`this is clicked ${clicked}`)
     if(clicked.tagName === "BUTTON")
-    // console.log(`This letter was clicked: ${e.target.textContent}`);
     clicked.classList.add('chosen');
-    // const chosen = document.querySelectorAll(".chosen");
-    // chosen.forEach(chose => {
-    //     console.log(`This is chosen: ${chose.textContent}`);
-    // })
-    // console.log(`This is clicked text content: ${clicked.textContent}`)
     clicked.setAttribute("disabled", "true");
-    checkLetter(clicked.textContent)
-})
+    const letterFound = checkLetter(clicked);
+    if (letterFound === null) {
+        const liveHearts = document.querySelectorAll(".tries img");
+        liveHearts[missed].src = "images/lostHeart.png";
+        missed += 1;
+        }
+    }
+)
 
