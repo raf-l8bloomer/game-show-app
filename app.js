@@ -174,3 +174,6 @@ function resetGame() {
     randomPhrase = getRandomPhraseAsArray(phrases);
 }
 
+
+// randomPhrase isn't working properly
+// losng hearts doesn't work again
