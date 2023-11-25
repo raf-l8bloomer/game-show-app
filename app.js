@@ -9,7 +9,7 @@ const startGame = document.querySelector('.btn__reset');
 const overlay = document.querySelector('#overlay');
 
 startGame.addEventListener('click', () => {
-    mainContainer.removeChild(overlay)
+    overlay.style.display = 'none';
 })
 
 const hints = [
@@ -20,13 +20,22 @@ const hints = [
     "hids fie fold logs hum aware",
 ]
 
+// const phrases = [
+//     "its not you its me",
+//     "throwback thursday",
+//     "i like big butts and i cannot lie",
+//     "sunday night football",
+//     "its 5 oclock somewhere"
+// ]
+
 const phrases = [
-    "its not you its me",
-    "throwback thursday",
-    "i like big butts and i cannot lie",
-    "sunday night football",
-    "its 5 oclock somewhere"
+    "test test",
+    "test test",
+    "test test",
+    "test test",
+    "test test",
 ]
+
 
 // const characterList = [];
 
@@ -94,13 +103,23 @@ keyboard.addEventListener("click", (e) => {
             missed += 1;
         }
     }
+
+    checkWin();
 });
 
 function checkWin () {
     const shown = document.querySelectorAll(".show");
-    if (shown.length = letters.length) {
-        overlay.className = "win";
-        mainContainer.appendChild('overlay');
+    console.log(`This is how many shown: ${shown.length}`)
+    console.log(`This is how many letters: ${letters.length}`)
+
+    if (shown.length === letters.length) {
+        overlay.className = "win"
+        overlay.style.display = "inherit";
+    } 
+
+    if (missed >= 5) {
+        overlay.className = "lose"
+        overlay.style.display = "inherit";
     }
 }
 
