@@ -61,15 +61,42 @@ function addPhraseToDisplay(arr) {
 addPhraseToDisplay(randomPhrase);
 
 
-// function addPhraseToDisplay(arr) {
-//     characterHTML = "";
-//     console.log(`This is array length: ${arr.length}`)
-//     for (let i = 0; i<arr.length; i++) {
-//         console.log(`<li>${arr[i]}</li>`);
-//     }
-// }
+function checkLetter (guess) {
+    console.log(guess);
+    const letters = document.querySelectorAll(".letter");
+    letters.forEach(letter => {
+        console.log(`These are the letters: ${letters}`)
+        console.log(`This is the letter: ${letter.textContent}`)
 
+        if (letter.textContent == guess) {
+            console.log(`this is a letter: ${letter}`);
+            letter.classList.add("show");
+            const correct = guess;
+            return correct;
+        } else {
+            return null
+        }
+    })
+}
 
+// const keyboard = document.getElementsByTagName("button");
+// const keyboard = document.querySelectorAll(".keyrow");
 
+const keyboard = document.querySelector("#qwerty")
+console.log(`This is the keyboard: ${keyboard}`);
 
+keyboard.addEventListener("click", (e) => {
+    const clicked = e.target;
+    // console.log(`this is clicked ${clicked}`)
+    if(clicked.tagName === "BUTTON")
+    // console.log(`This letter was clicked: ${e.target.textContent}`);
+    clicked.classList.add('chosen');
+    // const chosen = document.querySelectorAll(".chosen");
+    // chosen.forEach(chose => {
+    //     console.log(`This is chosen: ${chose.textContent}`);
+    // })
+    // console.log(`This is clicked text content: ${clicked.textContent}`)
+    clicked.setAttribute("disabled", "true");
+    checkLetter(clicked.textContent)
+})
 
