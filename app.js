@@ -3,6 +3,8 @@ const phrase = document.querySelector('#phrase');
 
 
 let missed = 0;
+let matchedLetters = [];
+
 
 const mainContainer = document.querySelector('.main-container');
 const startGame = document.querySelector('.btn__reset');
@@ -73,7 +75,6 @@ const letters = document.querySelectorAll(".letter");
 
 function checkLetter(guess) {
     console.log(guess);
-    const matchedLetters = [];
     for (let letter of letters) {
         if (letter.textContent == guess.textContent) {
             console.log(`this is a letter: ${letter.textContent}`);
@@ -115,14 +116,35 @@ function checkWin () {
     if (shown.length === letters.length) {
         overlay.className = "win"
         overlay.style.display = "inherit";
+        resetGame();
     } 
 
     if (missed >= 5) {
         overlay.className = "lose"
         overlay.style.display = "inherit";
+        resetGame();
     }
 }
 
-// loop in check letter doesn't loop through all of the same letters that match guesed. 
-// Work on Check Letter
-// Work on Check Win
+function resetGame () {
+    startGame.innerHTML = "Reset Game";
+    missed = 0;
+    matchedLetters = [];
+
+    const chosen = document.querySelectorAll('.chosen');
+    chosen.forEach(chose => {
+        chose.disabled = false;
+        chose.classList.remove('chosen');
+    })
+
+    const shown = document.querySelectorAll(".show");
+    shown.forEach(shownLetters => {
+        shownLetters.classList.remove('show');
+    })
+
+    const liveHearts = document.querySelectorAll(".tries img");
+    liveHearts.forEach(liveHeart => {
+        liveHeart.src = "images/liveHeart.png";
+    })
+}
+
