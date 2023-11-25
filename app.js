@@ -6,9 +6,9 @@ let missed = 0;
 
 const mainContainer = document.querySelector('.main-container');
 const startGame = document.querySelector('.btn__reset');
+const overlay = document.querySelector('#overlay');
 
 startGame.addEventListener('click', () => {
-    const overlay = document.querySelector('#overlay');
     mainContainer.removeChild(overlay)
 })
 
@@ -59,33 +59,51 @@ function addPhraseToDisplay(arr) {
 }
 
 addPhraseToDisplay(randomPhrase);
+const letters = document.querySelectorAll(".letter");
 
-function checkLetter (guess) {
+
+function checkLetter(guess) {
     console.log(guess);
-    const letters = document.querySelectorAll(".letter");
-    for (const letter of letters) {
-        if (letter.textContent === guess.textContent) {
+    const matchedLetters = [];
+    for (let letter of letters) {
+        if (letter.textContent == guess.textContent) {
             console.log(`this is a letter: ${letter.textContent}`);
             letter.classList.add("show");
-           return letter.textContent;
-    }}
+            matchedLetters.push(letter.textContent)
+        }
+    }
+    if (matchedLetters.length > 0 ) {
+        return matchedLetters
+    } else {
     return null;
-}
+    }
+};
 
 const keyboard = document.querySelector("#qwerty")
 console.log(`This is the keyboard: ${keyboard}`);
 
 keyboard.addEventListener("click", (e) => {
     const clicked = e.target;
-    if(clicked.tagName === "BUTTON")
-    clicked.classList.add('chosen');
-    clicked.setAttribute("disabled", "true");
-    const letterFound = checkLetter(clicked);
-    if (letterFound === null) {
-        const liveHearts = document.querySelectorAll(".tries img");
-        liveHearts[missed].src = "images/lostHeart.png";
-        missed += 1;
+    if (clicked.tagName === "BUTTON") {
+        clicked.classList.add('chosen');
+        clicked.setAttribute("disabled", "true");
+        const letterFound = checkLetter(clicked);
+        if (letterFound === null) {
+            const liveHearts = document.querySelectorAll(".tries img");
+            liveHearts[missed].src = "images/lostHeart.png";
+            missed += 1;
         }
     }
-)
+});
 
+function checkWin () {
+    const shown = document.querySelectorAll(".show");
+    if (shown.length = letters.length) {
+        overlay.className = "win";
+        mainContainer.appendChild('overlay');
+    }
+}
+
+// loop in check letter doesn't loop through all of the same letters that match guesed. 
+// Work on Check Letter
+// Work on Check Win
