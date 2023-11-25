@@ -30,12 +30,36 @@ const hints = [
 //     "its 5 oclock somewhere"
 // ]
 
+// const phrases = [
+//     "test test",
+//     "test test",
+//     "test test",
+//     "test test",
+//     "test test",
+// ]
+
 const phrases = [
-    "test test",
-    "test test",
-    "test test",
-    "test test",
-    "test test",
+    {
+        phrase: "its not you its me",
+        hint: "hids nod hue wets may"
+    },
+    {
+        phrase: "its not you its me",
+        hint: "hids nod hue wets may"
+    },
+    {
+        phrase: "its not you its me",
+        hint: "hids nod hue wets may"
+    },
+    {
+        phrase: "its not you its me",
+        hint: "hids nod hue wets may"
+    },
+    {
+        phrase: "its not you its me",
+        hint: "hids nod hue wets may"
+    },
+
 ]
 
 
@@ -43,16 +67,16 @@ const phrases = [
 
 function getRandomPhraseAsArray(arr) {
     const phraseIndex = Math.floor(Math.random() * arr.length);
-    const randomPhrase = arr[phraseIndex];
+    const randomPhrase = arr[phraseIndex].phrase;
     return randomPhrase;
     // const splitPhrase = randomPhrase.split('');
     // return characterList.push(splitPhrase);
 }
 
-const randomPhrase = getRandomPhraseAsArray(phrases);
-console.log(`This the new phrase: ${randomPhrase}`);
+let randomPhrase = getRandomPhraseAsArray(phrases);
+// console.log(`This the new phrase: ${randomPhrase}`);
 const phraseList = document.querySelector('#phrase ul');
-console.log(`This is a phrase list : ${phraseList}`)
+// console.log(`This is a phrase list : ${phraseList}`)
 
 function addPhraseToDisplay(arr) {
     arr.split("").forEach((character) => {
@@ -82,10 +106,10 @@ function checkLetter(guess) {
             matchedLetters.push(letter.textContent)
         }
     }
-    if (matchedLetters.length > 0 ) {
+    if (matchedLetters.length > 0) {
         return matchedLetters
     } else {
-    return null;
+        return null;
     }
 };
 
@@ -108,7 +132,7 @@ keyboard.addEventListener("click", (e) => {
     checkWin();
 });
 
-function checkWin () {
+function checkWin() {
     const shown = document.querySelectorAll(".show");
     console.log(`This is how many shown: ${shown.length}`)
     console.log(`This is how many letters: ${letters.length}`)
@@ -117,7 +141,7 @@ function checkWin () {
         overlay.className = "win"
         overlay.style.display = "inherit";
         resetGame();
-    } 
+    }
 
     if (missed >= 5) {
         overlay.className = "lose"
@@ -126,7 +150,7 @@ function checkWin () {
     }
 }
 
-function resetGame () {
+function resetGame() {
     startGame.innerHTML = "Reset Game";
     missed = 0;
     matchedLetters = [];
@@ -146,5 +170,7 @@ function resetGame () {
     liveHearts.forEach(liveHeart => {
         liveHeart.src = "images/liveHeart.png";
     })
+
+    randomPhrase = getRandomPhraseAsArray(phrases);
 }
 
