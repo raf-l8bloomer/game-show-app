@@ -10,6 +10,8 @@ const mainContainer = document.querySelector('.main-container');
 const startGame = document.querySelector('.btn__reset');
 const overlay = document.querySelector('#overlay');
 
+const hintDiv= document.querySelector("#id");
+
 startGame.addEventListener('click', () => {
     overlay.style.display = 'none';
 })
@@ -44,20 +46,20 @@ const phrases = [
         hint: "hids nod hue wets may"
     },
     {
-        phrase: "its not you its me",
-        hint: "hids nod hue wets may"
+        phrase: "throwback thursday",
+        hint: "the row pack thirst hay"
     },
     {
-        phrase: "its not you its me",
-        hint: "hids nod hue wets may"
+        phrase: "i like big butts and i cannot lie",
+        hint: "aisle hike peg bus hike an hot done high",
     },
     {
-        phrase: "its not you its me",
-        hint: "hids nod hue wets may"
+        phrase: "sunday night football",
+        hint: "son dane knived vote bowl"
     },
     {
-        phrase: "its not you its me",
-        hint: "hids nod hue wets may"
+        phrase: "im sexy and i know it",
+        hint: "aims heck see hand eye note"
     },
 
 ]
@@ -68,6 +70,11 @@ const phrases = [
 function getRandomPhraseAsArray(arr) {
     const phraseIndex = Math.floor(Math.random() * arr.length);
     const randomPhrase = arr[phraseIndex].phrase;
+    const matchingHint = arr[phraseIndex].hint;
+    console.log(matchingHint)
+    const p = document.createElement('p');
+    p.innerHTML = `Your hint: ${matchingHint}`;
+    hint.appendChild(p);
     return randomPhrase;
     // const splitPhrase = randomPhrase.split('');
     // return characterList.push(splitPhrase);
@@ -118,17 +125,19 @@ console.log(`This is the keyboard: ${keyboard}`);
 
 keyboard.addEventListener("click", (e) => {
     const clicked = e.target;
+    console.log(`clicked text content: ${clicked.textContent}`);
     if (clicked.tagName === "BUTTON") {
         clicked.classList.add('chosen');
         clicked.setAttribute("disabled", "true");
         const letterFound = checkLetter(clicked);
         if (letterFound === null) {
+            console.log(`letter found is null`)
             const liveHearts = document.querySelectorAll(".tries img");
             liveHearts[missed].src = "images/lostHeart.png";
             missed += 1;
         }
     }
-
+    console.log(`Missed: ${missed}`);
     checkWin();
 });
 
@@ -152,7 +161,6 @@ function checkWin() {
 
 function resetGame() {
     startGame.innerHTML = "Reset Game";
-    missed = 0;
     matchedLetters = [];
 
     const chosen = document.querySelectorAll('.chosen');
@@ -171,9 +179,12 @@ function resetGame() {
         liveHeart.src = "images/liveHeart.png";
     })
 
-    randomPhrase = getRandomPhraseAsArray(phrases);
+    const newRandomPhrase = getRandomPhraseAsArray(phrases);
+    addPhraseToDisplay(newRandomPhrase);
 }
 
 
 // randomPhrase isn't working properly
 // losng hearts doesn't work again
+
+// clear out addPhraseToDisplay on reset
