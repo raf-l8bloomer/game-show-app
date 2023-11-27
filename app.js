@@ -1,22 +1,17 @@
+// SELECTORS
+
 const qwerty = document.querySelector('#qwerty');
 const phrase = document.querySelector('#phrase');
-
-
-let missed = 0;
-let matchedLetters = [];
-
-
 const mainContainer = document.querySelector('.main-container');
 const startGame = document.querySelector('.btn__reset');
 const overlay = document.querySelector('#overlay');
-
 const hintDiv= document.querySelector("#hint");
-
-startGame.addEventListener('click', () => {
-    overlay.style.display = 'none';
-})
+const keyboard = document.querySelector("#qwerty")
 
 
+// Variables
+let missed = 0;
+let matchedLetters = [];
 const phrases = [
     {
         phrase: "its not you its me",
@@ -42,7 +37,17 @@ const phrases = [
 ]
 
 
-// const characterList = [];
+startGame.addEventListener('click', () => {
+    overlay.style.display = 'none';
+})
+
+/**
+ * getRandomPhraseAsArray
+ * @param {*} arr 
+ * 
+ * generates a random number to pull a random phrase and hint
+ * @returns random phrase and hint
+ */
 
 function getRandomPhraseAsArray(arr) {
     const phraseIndex = Math.floor(Math.random() * arr.length);
@@ -54,14 +59,20 @@ function getRandomPhraseAsArray(arr) {
     hintDiv.innerHTML = "";
     hintDiv.appendChild(p);
     return randomPhrase;
-    // const splitPhrase = randomPhrase.split('');
-    // return characterList.push(splitPhrase);
+
 }
 
 let randomPhrase = getRandomPhraseAsArray(phrases);
-// console.log(`This the new phrase: ${randomPhrase}`);
 const phraseList = document.querySelector('#phrase ul');
-// console.log(`This is a phrase list : ${phraseList}`)
+
+
+/**
+ * addPhraseToDisplay
+ * @param arr 
+ * 
+ * takes phrase and splits the characters into an array 
+ * takes array of characters and creates them into list item within unordered list
+ */
 
 function addPhraseToDisplay(arr) {
     arr.split("").forEach((character) => {
@@ -80,11 +91,14 @@ function addPhraseToDisplay(arr) {
 }
 
 addPhraseToDisplay(randomPhrase);
-let letters = document.querySelectorAll(".letter");
 
+/** checkLetter
+ * checks the guessed letter clicked on keyboad against the phrase and returns matchedLetter or null
+ */
 
 function checkLetter(guess) {
     console.log(guess);
+    const letters = document.querySelectorAll(".letter");
     const matchedLetters = []
     console.log(`these are matched letters: ${matchedLetters.length}`)
     for (let letter of letters) {
@@ -102,8 +116,11 @@ function checkLetter(guess) {
     }
 };
 
-const keyboard = document.querySelector("#qwerty")
-console.log(`This is the keyboard: ${keyboard}`);
+/**
+ * allows keyboard functionality when letter is clicked and runs checkLetter
+ * after runs checkWin
+ */
+
 
 keyboard.addEventListener("click", (e) => {
     const clicked = e.target;
@@ -123,7 +140,16 @@ keyboard.addEventListener("click", (e) => {
     checkWin();
 });
 
+
+/**
+ * checkWin
+ * 
+ * checks if the amount of letters displayed equals the amount of letters in the final phrase
+ * also checks if user made 5 or more incorrect guesses
+ */
 function checkWin() {
+    const letters = document.querySelectorAll(".letter");
+
     const shown = document.querySelectorAll(".show");
     console.log(`This is how many shown: ${shown.length}`)
     console.log(`This is how many letters: ${letters.length}`)
@@ -140,6 +166,10 @@ function checkWin() {
         resetGame();
     }
 }
+
+/** resetGame
+ * clears the hint, phrase, keyboard, and hearts
+ */
 
 function resetGame() {
     startGame.innerHTML = "Reset Game";
@@ -164,12 +194,4 @@ function resetGame() {
 
     const newRandomPhrase = getRandomPhraseAsArray(phrases);
     addPhraseToDisplay(newRandomPhrase);
-
-    letters = document.querySelectorAll(".letter");
-
 }
-
-
-
-
-// clear out addPhraseToDisplay on reset
