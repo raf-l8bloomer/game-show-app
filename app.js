@@ -10,35 +10,12 @@ const mainContainer = document.querySelector('.main-container');
 const startGame = document.querySelector('.btn__reset');
 const overlay = document.querySelector('#overlay');
 
-const hintDiv= document.querySelector("#id");
+const hintDiv= document.querySelector("#hint");
 
 startGame.addEventListener('click', () => {
     overlay.style.display = 'none';
 })
 
-const hints = [
-    "hids nod hue wets may",
-    "the row pack thirst hay",
-    "aisle hike peg bus hike an hot done high",
-    "son dane knived vote bowl",
-    "hids fie fold logs hum aware",
-]
-
-// const phrases = [
-//     "its not you its me",
-//     "throwback thursday",
-//     "i like big butts and i cannot lie",
-//     "sunday night football",
-//     "its 5 oclock somewhere"
-// ]
-
-// const phrases = [
-//     "test test",
-//     "test test",
-//     "test test",
-//     "test test",
-//     "test test",
-// ]
 
 const phrases = [
     {
@@ -74,7 +51,8 @@ function getRandomPhraseAsArray(arr) {
     console.log(matchingHint)
     const p = document.createElement('p');
     p.innerHTML = `Your hint: ${matchingHint}`;
-    hint.appendChild(p);
+    hintDiv.innerHTML = "";
+    hintDiv.appendChild(p);
     return randomPhrase;
     // const splitPhrase = randomPhrase.split('');
     // return characterList.push(splitPhrase);
@@ -98,19 +76,23 @@ function addPhraseToDisplay(arr) {
             phraseList.appendChild(li);
         }
     });
+    
 }
 
 addPhraseToDisplay(randomPhrase);
-const letters = document.querySelectorAll(".letter");
+let letters = document.querySelectorAll(".letter");
 
 
 function checkLetter(guess) {
     console.log(guess);
+    const matchedLetters = []
+    console.log(`these are matched letters: ${matchedLetters.length}`)
     for (let letter of letters) {
         if (letter.textContent == guess.textContent) {
             console.log(`this is a letter: ${letter.textContent}`);
             letter.classList.add("show");
             matchedLetters.push(letter.textContent)
+            console.log(`these are matched letters: ${matchedLetters}`)
         }
     }
     if (matchedLetters.length > 0) {
@@ -161,7 +143,8 @@ function checkWin() {
 
 function resetGame() {
     startGame.innerHTML = "Reset Game";
-    matchedLetters = [];
+    phraseList.innerHTML = "";
+    missed = 0;
 
     const chosen = document.querySelectorAll('.chosen');
     chosen.forEach(chose => {
@@ -181,10 +164,12 @@ function resetGame() {
 
     const newRandomPhrase = getRandomPhraseAsArray(phrases);
     addPhraseToDisplay(newRandomPhrase);
+
+    letters = document.querySelectorAll(".letter");
+
 }
 
 
-// randomPhrase isn't working properly
-// losng hearts doesn't work again
+
 
 // clear out addPhraseToDisplay on reset
